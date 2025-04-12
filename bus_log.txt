@@ -1,0 +1,2 @@
+Bus: BRTC | From: Cantonment | To: Gulistan | Stops: 6 | Fare: 60 Taka | Time: 30 mins
+Bus: BAHON | From: Mugda | To: Khilgaon | Stops: 1 | Fare: 10 Taka | Time: 5 mins

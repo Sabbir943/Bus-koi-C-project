@@ -1,5 +1,7 @@
 #include<stdio.h>
 #include<string.h>
+#include<stdlib.h>
+#include<ctype.h>
 #define MAX_ROUTES 18
 #define MAX_STOPS 20
 char routeNames[MAX_ROUTES][50] = {
@@ -969,14 +971,29 @@ int main() {
     int choice;
     int routeId;
 
+    char input[100];
+
     while (1) {
-        // Display menu
         displayMenu();
-
-        // Take user input
         printf("Enter Your Choice: ");
-        scanf("%d", &choice);
+        fflush(stdin); // Clear leftover input
+        fgets(input, sizeof(input), stdin);
 
+        // Validate: check if input is a number
+        int valid = 1;
+        for (int i = 0; input[i] != '\0' && input[i] != '\n'; i++) {
+            if (input[i] < '0' || input[i] > '9') {
+                valid = 0;
+                break;
+            }
+        }
+
+        if (!valid) {
+            printf("Invalid input! Please enter a number between 1 and 11.\n");
+            continue;
+        }
+
+        choice = atoi(input);
         // Handle menu options
         switch (choice) {
             case 1:

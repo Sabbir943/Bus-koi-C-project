@@ -1,2 +1,4 @@
 Bus: BRTC | From: Cantonment | To: Gulistan | Stops: 6 | Fare: 60 Taka | Time: 30 mins
 Bus: BAHON | From: Mugda | To: Khilgaon | Stops: 1 | Fare: 10 Taka | Time: 5 mins
+Bus: BOLAKA | From: Gazipur | To: Shib Bari | Stops: 1 | Fare: 10 Taka | Time: 5 mins
+Bus: BOLAKA | From: Motijheel | To: Mohakhali | Stops: 5 | Fare: 50 Taka | Time: 25 mins

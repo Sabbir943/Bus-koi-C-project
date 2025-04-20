@@ -51,7 +51,7 @@ void separator() {
 // Display Menu
 void displayMenu() {
     separator();
-    printf("              Welcome to Bus Koi\n");
+    printf("              Welcome to Bus Koi software\n");
     separator();
     printf("1. View All Bus Routes\n");
     printf("2. Select Route & Calculate Fare\n");

@@ -1,0 +1,12 @@
+------------------------------
+        BUS KOI TICKET        
+------------------------------
+Date & Time : Fri Apr 25 00:02:16 2025
+Passenger   : student
+Bus         : Anabil
+From        : jatrabari
+To          : airport
+Fare        : 34 BDT
+------------------------------
+  Thank you for using Bus Koi
+------------------------------

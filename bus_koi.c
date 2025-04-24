@@ -2,6 +2,7 @@
 #include<string.h>
 #include<stdlib.h>
 #include<ctype.h>
+#include<time.h>
 #define MAX_ROUTES 18
 #define MAX_STOPS 20
 char routeNames[MAX_ROUTES][50] = {
@@ -34,14 +35,15 @@ void showAllRoutes();
 void calculateFare();
 void showStopsDetails();
 void inputTravelTime();
-void checkBusAvailability();
 void inputBusAvailability();
+void checkBusAvailability();
 void displayEstimatedTravelTime();
 void calculateDistance();
 void Bus_calculateFare();
 void separator();
 void collectFeedback();
 void displayBusSchedules();
+void printTicket();
 
 // Display separator
 void separator() {
@@ -56,14 +58,15 @@ void displayMenu() {
     printf("1. View All Bus Routes\n");
     printf("2. Select Route & Calculate Fare\n");
     printf("3. View Route Stop Details\n");
-    printf("4. Check Bus Availability\n");
+    printf("4. Calculate Fare\n");
     printf("5. Input Bus Availability Information\n");
-    printf("6. Display Estimated Travel Time\n");
+    printf("6. Check Bus Availability\n");
     printf("7. Input Travel Time\n");
-    printf("8. Give Feedback\n");
-    printf("9. Display distance\n");
-    printf("10. Calculate Fare\n");
-    printf("11. Exit\n");
+    printf("8. Display Estimated Travel Time\n");
+    printf("9. Calculate distance\n");
+    printf("10. Give Feedback\n");
+    printf("11.Print Ticket\n");
+    printf("12. Exit\n");
     separator();
 }
 
@@ -616,6 +619,81 @@ void initializeBusAvailability() {
     }
 
 }
+void inputBusAvailability() {
+    int routeChoice, stopChoice, availability;
+    
+    // Show all routes
+    showAllRoutes();
+    
+    printf("\nSelect Route Number to Input Bus Availability: ");
+    scanf("%d", &routeChoice);
+
+    if (routeChoice < 1 || routeChoice > MAX_ROUTES) {
+        printf("Invalid Route Number!\n");
+        return;
+    }
+
+    // Display Stops for Selected Route
+    printf("\nStops on %s:\n", routeNames[routeChoice - 1]);
+    for (int i = 0; i < stopCounts[routeChoice - 1]; i++) {
+        printf("%d. %s\n", i + 1, stops[routeChoice - 1][i]);
+    }
+
+    // Input availability for each stop on the selected route
+    for (int i = 0; i < stopCounts[routeChoice - 1]; i++) {
+        printf("\nIs the bus available at stop %s? (1 for Available, 0 for Not Available): ", stops[routeChoice - 1][i]);
+        scanf("%d", &availability);
+
+        // Ensure valid input (only 0 or 1)
+        if (availability == 0 || availability == 1) {
+            busAvailability[routeChoice - 1][i] = availability;
+        } else {
+            printf("Invalid input! Please enter 1 (available) or 0 (not available).\n");
+            i--;  // Re-ask for the same stop if input is invalid
+        }
+    }
+
+    printf("\nBus Availability Information has been updated.\n");
+}
+void displayBusAvailability() {
+    int routeChoice, stopChoice;
+    
+    // Show all routes
+    showAllRoutes();
+    
+    printf("\nSelect Route Number to Check Bus Availability: ");
+    scanf("%d", &routeChoice);
+
+    if (routeChoice < 1 || routeChoice > MAX_ROUTES) {
+        printf("Invalid Route Number!\n");
+        return;
+    }
+
+    // Display Stops for Selected Route
+    printf("\nStops on %s:\n", routeNames[routeChoice - 1]);
+    for (int i = 0; i < stopCounts[routeChoice - 1]; i++) {
+        printf("%d. %s\n", i + 1, stops[routeChoice - 1][i]);
+    }
+
+    printf("\nEnter Stop Number to Check Availability: ");
+    scanf("%d", &stopChoice);
+
+    if (stopChoice < 1 || stopChoice > stopCounts[routeChoice - 1]) {
+        printf("Invalid Stop Number!\n");
+        return;
+    }
+
+    // Check and Display Bus Availability for Selected Stop
+    if (busAvailability[routeChoice - 1][stopChoice - 1] == 1) {
+        printf("The bus is available at %s.\n", stops[routeChoice - 1][stopChoice - 1]);
+    } else {
+        printf("Sorry, the bus is not available at %s.\n", stops[routeChoice - 1][stopChoice - 1]);
+    }
+}
+
+// Function to input bus availability for all stops on a selected route
+
+
 const char* stopNames[MAX_STOPS] = {
     "Shyamoli", "Gabtoli", "Jatrabari", "Sayedabad", "Khilgaon", 
     "Mohammadpur", "Tejgaon", "Kakrail", "Mirpur 1", "Mirpur 10", 
@@ -751,94 +829,6 @@ void initializeEstimatedTravelTime(int routeId) {
     }
     
 }
-
-
-void displayEstimatedTravelTime(int routeId) {
-    printf("Estimated travel times for Route %d:\n", routeId);
-    for (int i = 0; i < MAX_STOPS - 1; i++) {
-        if (estimatedTravelTime[routeId - 1][i] > 0) {
-            printf("From %s to %s: %d minutes\n", stopNames[i], stopNames[i + 1], estimatedTravelTime[routeId - 1][i]);
-        }
-    }
-}
-
-// Display Bus Availability Information
-void displayBusAvailability() {
-    int routeChoice, stopChoice;
-    
-    // Show all routes
-    showAllRoutes();
-    
-    printf("\nSelect Route Number to Check Bus Availability: ");
-    scanf("%d", &routeChoice);
-
-    if (routeChoice < 1 || routeChoice > MAX_ROUTES) {
-        printf("Invalid Route Number!\n");
-        return;
-    }
-
-    // Display Stops for Selected Route
-    printf("\nStops on %s:\n", routeNames[routeChoice - 1]);
-    for (int i = 0; i < stopCounts[routeChoice - 1]; i++) {
-        printf("%d. %s\n", i + 1, stops[routeChoice - 1][i]);
-    }
-
-    printf("\nEnter Stop Number to Check Availability: ");
-    scanf("%d", &stopChoice);
-
-    if (stopChoice < 1 || stopChoice > stopCounts[routeChoice - 1]) {
-        printf("Invalid Stop Number!\n");
-        return;
-    }
-
-    // Check and Display Bus Availability for Selected Stop
-    if (busAvailability[routeChoice - 1][stopChoice - 1] == 1) {
-        printf("The bus is available at %s.\n", stops[routeChoice - 1][stopChoice - 1]);
-    } else {
-        printf("Sorry, the bus is not available at %s.\n", stops[routeChoice - 1][stopChoice - 1]);
-    }
-}
-
-// Function to input bus availability for all stops on a selected route
-void inputBusAvailability() {
-    int routeChoice, stopChoice, availability;
-    
-    // Show all routes
-    showAllRoutes();
-    
-    printf("\nSelect Route Number to Input Bus Availability: ");
-    scanf("%d", &routeChoice);
-
-    if (routeChoice < 1 || routeChoice > MAX_ROUTES) {
-        printf("Invalid Route Number!\n");
-        return;
-    }
-
-    // Display Stops for Selected Route
-    printf("\nStops on %s:\n", routeNames[routeChoice - 1]);
-    for (int i = 0; i < stopCounts[routeChoice - 1]; i++) {
-        printf("%d. %s\n", i + 1, stops[routeChoice - 1][i]);
-    }
-
-    // Input availability for each stop on the selected route
-    for (int i = 0; i < stopCounts[routeChoice - 1]; i++) {
-        printf("\nIs the bus available at stop %s? (1 for Available, 0 for Not Available): ", stops[routeChoice - 1][i]);
-        scanf("%d", &availability);
-
-        // Ensure valid input (only 0 or 1)
-        if (availability == 0 || availability == 1) {
-            busAvailability[routeChoice - 1][i] = availability;
-        } else {
-            printf("Invalid input! Please enter 1 (available) or 0 (not available).\n");
-            i--;  // Re-ask for the same stop if input is invalid
-        }
-    }
-
-    printf("\nBus Availability Information has been updated.\n");
-}
-
-
-
 void inputTravelTime() {
     int route, startStop, endStop, time;
     printf("Enter route number (1 to %d): ", MAX_ROUTES);
@@ -857,6 +847,16 @@ void inputTravelTime() {
         printf("Travel time between Stop %d and Stop %d updated to %d minutes.\n", startStop, endStop, time);
     } else {
         printf("Invalid input. Please try again.\n");
+    }
+}
+
+
+void displayEstimatedTravelTime(int routeId) {
+    printf("Estimated travel times for Route %d:\n", routeId);
+    for (int i = 0; i < MAX_STOPS - 1; i++) {
+        if (estimatedTravelTime[routeId - 1][i] > 0) {
+            printf("From %s to %s: %d minutes\n", stopNames[i], stopNames[i + 1], estimatedTravelTime[routeId - 1][i]);
+        }
     }
 }
 void calculateDistance() {
@@ -962,6 +962,55 @@ void Bus_calculateFare() {
 
     printf("Estimated fare: %d BDT\n", fare);
 }
+void printTicket() {
+    FILE *ticket = fopen("ticket.txt", "w");
+    if (ticket == NULL) {
+        printf("Error creating ticket file!\n");
+        return;
+    }
+
+    char type[20], bus[50], from[50], to[50], fareStr[10];
+    int fare;
+
+    printf("Enter Passenger Type (Student/General): ");
+    fgets(type, sizeof(type), stdin);
+    type[strcspn(type, "\n")] = '\0'; // Remove newline character
+
+    printf("Enter Bus Name: ");
+    fgets(bus, sizeof(bus), stdin);
+    bus[strcspn(bus, "\n")] = '\0';
+
+    printf("Enter Starting Stop: ");
+    fgets(from, sizeof(from), stdin);
+    from[strcspn(from, "\n")] = '\0';
+
+    printf("Enter Destination Stop: ");
+    fgets(to, sizeof(to), stdin);
+    to[strcspn(to, "\n")] = '\0';
+
+    printf("Enter Fare (in BDT): ");
+    fgets(fareStr, sizeof(fareStr), stdin);
+    fare = atoi(fareStr);
+
+    time_t now = time(NULL);
+    char *dt = ctime(&now);
+
+    fprintf(ticket, "------------------------------\n");
+    fprintf(ticket, "        BUS KOI TICKET        \n");
+    fprintf(ticket, "------------------------------\n");
+    fprintf(ticket, "Date & Time : %s", dt);
+    fprintf(ticket, "Passenger   : %s\n", type);
+    fprintf(ticket, "Bus         : %s\n", bus);
+    fprintf(ticket, "From        : %s\n", from);
+    fprintf(ticket, "To          : %s\n", to);
+    fprintf(ticket, "Fare        : %d BDT\n", fare);
+    fprintf(ticket, "------------------------------\n");
+    fprintf(ticket, "  Thank you for using Bus Koi\n");
+    fprintf(ticket, "------------------------------\n");
+
+    fclose(ticket);
+    printf("Ticket saved to 'ticket.txt'\n");
+}
 
 
 int main() {
@@ -1006,12 +1055,19 @@ int main() {
                 showStopsDetails();
                 break;
             case 4:
-                displayBusAvailability();
-                break;
+                Bus_calculateFare();
+                break;    
+            
             case 5:
                 inputBusAvailability();
                 break;
             case 6:
+                displayBusAvailability();
+                break;
+                case 7:
+                inputTravelTime();
+                break;
+            case 8:
                 printf("Enter route ID (1-%d): ", MAX_ROUTES);
                 scanf("%d", &routeId);
 
@@ -1022,20 +1078,20 @@ int main() {
                     printf("Invalid route ID! Please try again.\n");
                 }
                 break;
-            case 7:
-                inputTravelTime();
-                break;
-            case 8:
-                collectFeedback();
-                break;
+            
+            
             case 9:
                  calculateDistance();
                 break;
-            case 10:
-                Bus_calculateFare();
-                break;    
-
-            case 11:
+              
+                case 10:
+                collectFeedback();
+                break; 
+                case 11:
+                   printTicket();
+                        break; 
+               
+            case 12:
                 printf("Thank you for using Bus Koi! Exiting...\n");
                 return 0;
             default:

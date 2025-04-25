@@ -5,6 +5,7 @@
 #include<time.h>
 #define MAX_ROUTES 18
 #define MAX_STOPS 20
+//declearation of 2D array
 char routeNames[MAX_ROUTES][50] = {
     "Anabil Super",
     "Thikana Express Limited",
@@ -25,7 +26,7 @@ char routeNames[MAX_ROUTES][50] = {
     "SUPER BUS",                
     "DHAKA PORIBOHON"
 };
-
+//declearation of 3D array
 char stops[MAX_ROUTES][MAX_STOPS][50];
 int stopCounts[MAX_ROUTES];
 
@@ -73,7 +74,7 @@ void displayMenu() {
 void initializeRoutes() {
     for (int route = 0; route < 18; route++) {
         switch (route) {
-            // Routes 0 to 6 (already written)
+            
             case 0:  // Route 1
                 stopCounts[route] = 12;
                 strcpy(stops[route][0], "Gazipur Chowrasta");
@@ -361,73 +362,10 @@ void showAllRoutes() {
         printf("%d. %s\n", i + 1, routeNames[i]);
     }
 }
-void collectFeedback() {
-    FILE *fp;
-    fp = fopen("feedback.txt", "a");  // Open the file in append mode to save feedback
 
-    if (fp == NULL) {
-        printf("Error opening feedback file!\n");
-        return;
-    }
-
-    int rating;
-    int feedbackChoice;
-    char comment[100];  // To store the feedback comment
-
-    // Collect the feedback rating (1-5)
-    printf("\nPlease rate your experience from 1 (Poor) to 5 (Excellent): ");
-    scanf("%d", &rating);
-    
-    // Validate rating input
-    if (rating < 1 || rating > 5) {
-        printf("Invalid rating! Please enter a number between 1 and 5.\n");
-        fclose(fp);
-        return;
-    }
-
-    // Provide a menu for predefined feedback options
-    printf("\nSelect Feedback Type:\n");
-    printf("1. Excellent\n");
-    printf("2. Good\n");
-    printf("3. Average\n");
-    printf("4. Poor\n");
-    printf("5. Fare\n");
-    printf("Enter your choice (1-5): ");
-    scanf("%d", &feedbackChoice);
-
-    // Use switch-case to set the comment based on user selection
-    switch (feedbackChoice) {
-        case 1:
-            strcpy(comment, "Excellent");
-            break;
-        case 2:
-            strcpy(comment, "Good");
-            break;
-        case 3:
-            strcpy(comment, "Average");
-            break;
-        case 4:
-            strcpy(comment, "Poor");
-            break;
-        case 5:
-            strcpy(comment, "Fare");
-            break;
-        default:
-            printf("Invalid choice! No feedback saved.\n");
-            fclose(fp);
-            return;
-    }
-
-    // Save the feedback to the file
-    fprintf(fp, "Rating: %d/5\nFeedback: %s\n\n", rating, comment);
-    
-    printf("\nThank you for your feedback!\n");
-
-    fclose(fp);
-}
 void calculateFare() {
     FILE *fp;
-    fp = fopen("bus_log.txt", "a");
+    fp = fopen("bus_data.txt", "a");
     int routeChoice, start, end;
     showAllRoutes();
 
@@ -1011,7 +949,70 @@ void printTicket() {
     fclose(ticket);
     printf("Ticket saved to 'ticket.txt'\n");
 }
+void collectFeedback() {
+    FILE *fp;
+    fp = fopen("feedback.txt", "a");  // Open the file in append mode to save feedback
 
+    if (fp == NULL) {
+        printf("Error opening feedback file!\n");
+        return;
+    }
+
+    int rating;
+    int feedbackChoice;
+    char comment[100];  // To store the feedback comment
+
+    // Collect the feedback rating (1-5)
+    printf("\nPlease rate your experience from 1 (Poor) to 5 (Excellent): ");
+    scanf("%d", &rating);
+    
+    // Validate rating input
+    if (rating < 1 || rating > 5) {
+        printf("Invalid rating! Please enter a number between 1 and 5.\n");
+        fclose(fp);
+        return;
+    }
+
+    // Provide a menu for predefined feedback options
+    printf("\nSelect Feedback Type:\n");
+    printf("1. Excellent\n");
+    printf("2. Good\n");
+    printf("3. Average\n");
+    printf("4. Poor\n");
+    printf("5. Fare\n");
+    printf("Enter your choice (1-5): ");
+    scanf("%d", &feedbackChoice);
+
+    // Use switch-case to set the comment based on user selection
+    switch (feedbackChoice) {
+        case 1:
+            strcpy(comment, "Excellent");
+            break;
+        case 2:
+            strcpy(comment, "Good");
+            break;
+        case 3:
+            strcpy(comment, "Average");
+            break;
+        case 4:
+            strcpy(comment, "Poor");
+            break;
+        case 5:
+            strcpy(comment, "Fare");
+            break;
+        default:
+            printf("Invalid choice! No feedback saved.\n");
+            fclose(fp);
+            return;
+    }
+
+    // Save the feedback to the file
+    fprintf(fp, "Rating: %d/5\nFeedback: %s\n\n", rating, comment);
+    
+    printf("\nThank you for your feedback!\n");
+
+    fclose(fp);
+}
 
 int main() {
     // Initialize routes and travel times

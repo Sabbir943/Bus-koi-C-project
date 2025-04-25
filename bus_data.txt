@@ -1,0 +1,2 @@
+Bus: Alif | From: Mirpur Sony Cinema Hall | To: Gulshan 1 | Stops: 5 | Fare: 50 Taka | Time: 25 mins
+Bus: RAIDA ENTERPRISE | From: Jatrabari | To: Postogola | Stops: 1 | Fare: 10 Taka | Time: 5 mins

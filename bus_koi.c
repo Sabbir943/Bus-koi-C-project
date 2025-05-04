@@ -27,9 +27,9 @@ char routeNames[MAX_ROUTES][50] = {
     "DHAKA PORIBOHON"
 };
 //declearation of 3D array
-char stops[MAX_ROUTES][MAX_STOPS][50];
-int stopCounts[MAX_ROUTES];
-
+char stops[MAX_ROUTES][MAX_STOPS][50];//declearation of 3D array
+int stopCounts[MAX_ROUTES];//declearation of 1D array
+//predeclared function
 void displayMenu();
 void initializeRoutes();
 void showAllRoutes();
@@ -53,7 +53,7 @@ void separator() {
 
 // Display Menu
 void displayMenu() {
-    separator();
+    separator();//----------
     printf("              Welcome to Bus Koi software\n");
     separator();
     printf("1. View All Bus Routes\n");
@@ -68,7 +68,7 @@ void displayMenu() {
     printf("10. Give Feedback\n");
     printf("11.Print Ticket\n");
     printf("12. Exit\n");
-    separator();
+    separator();//----------
 }
 
 void initializeRoutes() {
@@ -76,7 +76,7 @@ void initializeRoutes() {
         switch (route) {
             
             case 0:  // Route 1
-                stopCounts[route] = 12;
+                stopCounts[route] = 12;//total 12 index
                 strcpy(stops[route][0], "Gazipur Chowrasta");
                 strcpy(stops[route][1], "Uttara");
                 strcpy(stops[route][2], "Airport");
@@ -365,7 +365,7 @@ void showAllRoutes() {
 
 void calculateFare() {
     FILE *fp;
-    fp = fopen("bus_data.txt", "a");
+    fp = fopen("bus_data.txt", "a");//data add
     int routeChoice, start, end;
     showAllRoutes();
 
@@ -392,11 +392,11 @@ void calculateFare() {
         return;
     }
 
-    int distance = (end > start) ? (end - start) : (start - end);
-    int fare = distance * 10;
+    int distance = (end > start) ? (end - start) : (start - end);//ternary operator
+    int fare = distance * 10;//
     int time = distance * 5;
 
-    separator();
+    separator();//--
     printf("Bus Name: %s\n", routeNames[routeChoice - 1]);
     printf("From: %s\n", stops[routeChoice - 1][start - 1]);
     printf("To: %s\n", stops[routeChoice - 1][end - 1]);
@@ -408,7 +408,7 @@ void calculateFare() {
     fprintf(fp, "Bus: %s | From: %s | To: %s | Stops: %d | Fare: %d Taka | Time: %d mins\n",
             routeNames[routeChoice - 1], stops[routeChoice - 1][start - 1], stops[routeChoice - 1][end - 1], distance, fare, time);
 
-    fclose(fp);
+    fclose(fp);//file close
 }
 
 // Show Route Stop Details
@@ -418,7 +418,7 @@ void showStopsDetails() {
     printf("\nSelect Route Number to View Stops: ");
     scanf("%d", &routeChoice);
 
-    if (routeChoice < 1 || routeChoice > MAX_ROUTES) {
+    if (routeChoice < 1 || routeChoice > MAX_ROUTES) {//
         printf("Invalid Route Number!\n");
         return;
     }
@@ -433,128 +433,250 @@ int busAvailability[MAX_ROUTES][MAX_STOPS];
 
 void initializeBusAvailability() {
     // Initialize bus availability for all routes with if-else statements
-    if (0 == 0) {
+    
         // Route 1: Anabil Super
-        busAvailability[0][0] = 1; busAvailability[0][1] = 1; busAvailability[0][2] = 1;
-        busAvailability[0][3] = 1; busAvailability[0][4] = 1; busAvailability[0][5] = 1;
-        busAvailability[0][6] = 0; busAvailability[0][7] = 1; busAvailability[0][8] = 0;
-        busAvailability[0][9] = 1; busAvailability[0][10] = 1; busAvailability[0][11] = 1;
-    }
-    else if (0 == 1) {
+        busAvailability[0][0] = 1; 
+        busAvailability[0][1] = 1;
+        busAvailability[0][2] = 1;
+        busAvailability[0][3] = 1;
+        busAvailability[0][4] = 1;
+        busAvailability[0][5] = 1;
+        busAvailability[0][6] = 0; 
+        busAvailability[0][7] = 1; 
+        busAvailability[0][8] = 0;
+        busAvailability[0][9] = 1; 
+        busAvailability[0][10] = 1;
+        busAvailability[0][11] = 1;
+    
+    
         // Route 2: Thikana Express Limited
-        busAvailability[1][0] = 1; busAvailability[1][1] = 0; busAvailability[1][2] = 1;
-        busAvailability[1][3] = 1; busAvailability[1][4] = 1; busAvailability[1][5] = 1;
-        busAvailability[1][6] = 1; busAvailability[1][7] = 0; busAvailability[1][8] = 1;
+        busAvailability[1][0] = 1; 
+        busAvailability[1][1] = 0;
+        busAvailability[1][2] = 1;
+        busAvailability[1][3] = 1;
+        busAvailability[1][4] = 1;
+        busAvailability[1][5] = 1;
+        busAvailability[1][6] = 1;
+        busAvailability[1][7] = 0;
+        busAvailability[1][8] = 1;
         busAvailability[1][9] = 1;
-    }
-    else if (0 == 2) {
+    
         // Route 3: RAIDA ENTERPRISE
-        busAvailability[2][0] = 1; busAvailability[2][1] = 1; busAvailability[2][2] = 1;
-        busAvailability[2][3] = 0; busAvailability[2][4] = 1; busAvailability[2][5] = 1;
-        busAvailability[2][6] = 1; busAvailability[2][7] = 1; busAvailability[2][8] = 1;
+        busAvailability[2][0] = 1; 
+        busAvailability[2][1] = 1; 
+        busAvailability[2][2] = 1;
+        busAvailability[2][3] = 0; 
+        busAvailability[2][4] = 1; 
+        busAvailability[2][5] = 1;
+        busAvailability[2][6] = 1; 
+        busAvailability[2][7] = 1;
+        busAvailability[2][8] = 1;
         busAvailability[2][9] = 1;
-    }
-    else if (0 == 3) {
+    
+   
         // Route 4: Alif
-        busAvailability[3][0] = 0; busAvailability[3][1] = 1; busAvailability[3][2] = 1;
-        busAvailability[3][3] = 1; busAvailability[3][4] = 0; busAvailability[3][5] = 1;
-        busAvailability[3][6] = 1; busAvailability[3][7] = 1; busAvailability[3][8] = 1;
-    }
-    else if (0 == 4) {
+        busAvailability[3][0] = 0;
+        busAvailability[3][1] = 1; 
+        busAvailability[3][2] = 1;
+        busAvailability[3][3] = 1;
+        busAvailability[3][4] = 0;
+        busAvailability[3][5] = 1;
+        busAvailability[3][6] = 1;
+        busAvailability[3][7] = 1;
+        busAvailability[3][8] = 1;
+    
+   
         // Route 5: Prajapati & Konok
-        busAvailability[4][0] = 1; busAvailability[4][1] = 1; busAvailability[4][2] = 1;
-        busAvailability[4][3] = 1; busAvailability[4][4] = 1; busAvailability[4][5] = 0;
-        busAvailability[4][6] = 1; busAvailability[4][7] = 1; busAvailability[4][8] = 1;
+        busAvailability[4][0] = 1; 
+        busAvailability[4][1] = 1;
+        busAvailability[4][2] = 1;
+        busAvailability[4][3] = 1;
+        busAvailability[4][4] = 1; 
+        busAvailability[4][5] = 0;
+        busAvailability[4][6] = 1;
+        busAvailability[4][7] = 1;
+        busAvailability[4][8] = 1;
         busAvailability[4][9] = 0;
-    }
-    else if (0 == 5) {
+    
+    
         // Route 6: BRTC
-        busAvailability[5][0] = 1; busAvailability[5][1] = 1; busAvailability[5][2] = 1;
-        busAvailability[5][3] = 1; busAvailability[5][4] = 1; busAvailability[5][5] = 1;
-        busAvailability[5][6] = 1; busAvailability[5][7] = 1; busAvailability[5][8] = 0;
-    }
-    else if (0 == 6) {
+        busAvailability[5][0] = 1;
+        busAvailability[5][1] = 1;
+        busAvailability[5][2] = 1;
+        busAvailability[5][3] = 1;
+        busAvailability[5][4] = 1;
+        busAvailability[5][5] = 1;
+        busAvailability[5][6] = 1; 
+        busAvailability[5][7] = 1; 
+        busAvailability[5][8] = 0;
+    
+ 
         // Route 7: BOLAKA
-        busAvailability[6][0] = 1; busAvailability[6][1] = 1; busAvailability[6][2] = 1;
-        busAvailability[6][3] = 1; busAvailability[6][4] = 1; busAvailability[6][5] = 1;
-        busAvailability[6][6] = 1; busAvailability[6][7] = 1; busAvailability[6][8] = 1;
-    }
-    else if (0 == 7) {
+        busAvailability[6][0] = 1; 
+        busAvailability[6][1] = 1;
+        busAvailability[6][2] = 1;
+        busAvailability[6][3] = 1;
+        busAvailability[6][4] = 1; 
+        busAvailability[6][5] = 1;
+        busAvailability[6][6] = 1;
+        busAvailability[6][7] = 1;
+        busAvailability[6][8] = 1;
+    
+  
         // Route 8: LABBAYEK
-        busAvailability[7][0] = 1; busAvailability[7][1] = 0; busAvailability[7][2] = 1;
-        busAvailability[7][3] = 0; busAvailability[7][4] = 1; busAvailability[7][5] = 1;
-        busAvailability[7][6] = 0; busAvailability[7][7] = 1; busAvailability[7][8] = 1;
-    }
-    else if (0 == 8) {
+        busAvailability[7][0] = 1;
+        busAvailability[7][1] = 0;
+        busAvailability[7][2] = 1;
+        busAvailability[7][3] = 0;
+        busAvailability[7][4] = 1;
+        busAvailability[7][5] = 1;
+        busAvailability[7][6] = 0;
+        busAvailability[7][7] = 1; 
+        busAvailability[7][8] = 1;
+    
+    
         // Route 9: TORONGO PLUS
-        busAvailability[8][0] = 1; busAvailability[8][1] = 1; busAvailability[8][2] = 1;
-        busAvailability[8][3] = 1; busAvailability[8][4] = 1; busAvailability[8][5] = 1;
-        busAvailability[8][6] = 1; busAvailability[8][7] = 1; busAvailability[8][8] = 1;
-        busAvailability[8][9] = 1; busAvailability[8][10] = 1; busAvailability[8][11] = 1;
+        busAvailability[8][0] = 1;
+        busAvailability[8][1] = 1; 
+        busAvailability[8][2] = 1;
+        busAvailability[8][3] = 1;
+        busAvailability[8][4] = 1;
+        busAvailability[8][5] = 1;
+        busAvailability[8][6] = 1; 
+        busAvailability[8][7] = 1; 
+        busAvailability[8][8] = 1;
+        busAvailability[8][9] = 1;
+        busAvailability[8][10] = 1;
+        busAvailability[8][11] = 1;
         busAvailability[8][12] = 1;
-    }
-    if (0 == 9) {
+    
+  
         // Route 10: BAHON
-        busAvailability[9][0] = 1; busAvailability[9][1] = 1; busAvailability[9][2] = 1;
-        busAvailability[9][3] = 1; busAvailability[9][4] = 1; busAvailability[9][5] = 1;
-        busAvailability[9][6] = 1; busAvailability[9][7] = 1; busAvailability[9][8] = 1;
-        busAvailability[9][9] = 1; busAvailability[9][10] = 1; busAvailability[9][11] = 1;
-        busAvailability[9][12] = 1; busAvailability[9][13] = 1;
-    }
-    else if (0 == 10) {
+        busAvailability[9][0] = 1;
+        busAvailability[9][1] = 1; 
+        busAvailability[9][2] = 1;
+        busAvailability[9][3] = 1;
+        busAvailability[9][4] = 1;
+        busAvailability[9][5] = 1;
+        busAvailability[9][6] = 1; 
+        busAvailability[9][7] = 1; 
+        busAvailability[9][8] = 1;
+        busAvailability[9][9] = 1; 
+        busAvailability[9][10] = 1;
+        busAvailability[9][11] = 1;
+        busAvailability[9][12] = 1;
+        busAvailability[9][13] = 1;
+    
+    
         // Route 11: NISORGO
-        busAvailability[10][0] = 1; busAvailability[10][1] = 1; busAvailability[10][2] = 1;
-        busAvailability[10][3] = 1; busAvailability[10][4] = 1; busAvailability[10][5] = 1;
-        busAvailability[10][6] = 1; busAvailability[10][7] = 1; busAvailability[10][8] = 1;
-        busAvailability[10][9] = 1; busAvailability[10][10] = 1; busAvailability[10][11] = 1;
-        busAvailability[10][12] = 1; busAvailability[10][13] = 1; busAvailability[10][14] = 1;
-    }
-    else if (0 == 11) {
+        busAvailability[10][0] = 1; 
+        busAvailability[10][1] = 1;
+        busAvailability[10][2] = 1;
+        busAvailability[10][3] = 1; 
+        busAvailability[10][4] = 1; 
+        busAvailability[10][5] = 1;
+        busAvailability[10][6] = 1;
+        busAvailability[10][7] = 1; 
+        busAvailability[10][8] = 1;
+        busAvailability[10][9] = 1;
+        busAvailability[10][10] = 1; 
+        busAvailability[10][11] = 1;
+        busAvailability[10][12] = 1; 
+        busAvailability[10][13] = 1; 
+        busAvailability[10][14] = 1;
+    
         // Route 12: SHOTABDI
-        busAvailability[11][0] = 1; busAvailability[11][1] = 1; busAvailability[11][2] = 1;
-        busAvailability[11][3] = 1; busAvailability[11][4] = 1; busAvailability[11][5] = 1;
-        busAvailability[11][6] = 1; busAvailability[11][7] = 1; busAvailability[11][8] = 1;
-        busAvailability[11][9] = 1; busAvailability[11][10] = 1; busAvailability[11][11] = 1;
-        busAvailability[11][12] = 1; busAvailability[11][13] = 1;
-    }
-    else if (0 == 12) {
+        busAvailability[11][0] = 1;
+        busAvailability[11][1] = 1;
+        busAvailability[11][2] = 1;
+        busAvailability[11][3] = 1; 
+        busAvailability[11][4] = 1; 
+        busAvailability[11][5] = 1;
+        busAvailability[11][6] = 1;
+        busAvailability[11][7] = 1;
+        busAvailability[11][8] = 1;
+        busAvailability[11][9] = 1;
+        busAvailability[11][10] = 1;
+        busAvailability[11][11] = 1;
+        busAvailability[11][12] = 1; 
+        busAvailability[11][13] = 1;
+    
+    
         // Route 13: CANTONMENT MINI SERVICE
-        busAvailability[12][0] = 1; busAvailability[12][1] = 1; busAvailability[12][2] = 1;
-        busAvailability[12][3] = 1; busAvailability[12][4] = 1; busAvailability[12][5] = 1;
-        busAvailability[12][6] = 1; busAvailability[12][7] = 1; busAvailability[12][8] = 1;
-    }
-    else if (0 == 13) {
+        busAvailability[12][0] = 1; 
+        busAvailability[12][1] = 1;
+        busAvailability[12][2] = 1;
+        busAvailability[12][3] = 1;
+        busAvailability[12][4] = 1;
+        busAvailability[12][5] = 1;
+        busAvailability[12][6] = 1;
+        busAvailability[12][7] = 1;
+        busAvailability[12][8] = 1;
+    
+    
         // Route 14: RONGDHONU EXPRESS
-        busAvailability[13][0] = 1; busAvailability[13][1] = 1; busAvailability[13][2] = 1;
-        busAvailability[13][3] = 1; busAvailability[13][4] = 1; busAvailability[13][5] = 1;
-        busAvailability[13][6] = 1; busAvailability[13][7] = 1; busAvailability[13][8] = 1;
-        busAvailability[13][9] = 1; busAvailability[13][10] = 1; busAvailability[13][11] = 1;
-    }
-    else if (0 == 14) {
+        busAvailability[13][0] = 1; 
+        busAvailability[13][1] = 1; 
+        busAvailability[13][2] = 1;
+        busAvailability[13][3] = 1; 
+        busAvailability[13][4] = 1; 
+        busAvailability[13][5] = 1;
+        busAvailability[13][6] = 1; 
+        busAvailability[13][7] = 1; 
+        busAvailability[13][8] = 1;
+        busAvailability[13][9] = 1; 
+        busAvailability[13][10] = 1; 
+        busAvailability[13][11] = 1;
+    
+    
         // Route 15: BORAK PORIBOHON
-        busAvailability[14][0] = 1; busAvailability[14][1] = 1;
-    }
-    else if (0 == 15) {
+        busAvailability[14][0] = 1; 
+        busAvailability[14][1] = 1;
+    
+    
         // Route 16: RAJDHANI
-        busAvailability[15][0] = 1; busAvailability[15][1] = 1; busAvailability[15][2] = 1;
-        busAvailability[15][3] = 1; busAvailability[15][4] = 1; busAvailability[15][5] = 1;
-        busAvailability[15][6] = 1; busAvailability[15][7] = 1; busAvailability[15][8] = 1;
-        busAvailability[15][9] = 1; busAvailability[15][10] = 1; busAvailability[15][11] = 1;
-    }
-    else if (0 == 16) {
+        busAvailability[15][0] = 1;
+        busAvailability[15][1] = 1; 
+        busAvailability[15][2] = 1;
+        busAvailability[15][3] = 1;
+        busAvailability[15][4] = 1; 
+        busAvailability[15][5] = 1;
+        busAvailability[15][6] = 1; 
+        busAvailability[15][7] = 1; 
+        busAvailability[15][8] = 1;
+        busAvailability[15][9] = 1; 
+        busAvailability[15][10] = 1; 
+        busAvailability[15][11] = 1;
+    
         // Route 17: SUPER BUS
-        busAvailability[16][0] = 1; busAvailability[16][1] = 1; busAvailability[16][2] = 1;
-        busAvailability[16][3] = 1; busAvailability[16][4] = 1; busAvailability[16][5] = 1;
-        busAvailability[16][6] = 1; busAvailability[16][7] = 1; busAvailability[16][8] = 1;
-        busAvailability[16][9] = 1; busAvailability[16][10] = 1; busAvailability[16][11] = 1;
-    }
-    else if (0 == 17) {
+        busAvailability[16][0] = 1; 
+        busAvailability[16][1] = 1; 
+        busAvailability[16][2] = 1;
+        busAvailability[16][3] = 1; 
+        busAvailability[16][4] = 1; 
+        busAvailability[16][5] = 1;
+        busAvailability[16][6] = 1; 
+        busAvailability[16][7] = 1; 
+        busAvailability[16][8] = 1;
+        busAvailability[16][9] = 1; 
+        busAvailability[16][10] = 1; 
+        busAvailability[16][11] = 1;
+    
+    
         // Route 18: DHAKA PORIBOHON
-        busAvailability[17][0] = 1; busAvailability[17][1] = 1; busAvailability[17][2] = 1;
-        busAvailability[17][3] = 1; busAvailability[17][4] = 1; busAvailability[17][5] = 1;
-        busAvailability[17][6] = 1; busAvailability[17][7] = 1; busAvailability[17][8] = 1;
-        busAvailability[17][9] = 1; busAvailability[17][10] = 1; busAvailability[17][11] = 1;
-    }
+        busAvailability[17][0] = 1; 
+        busAvailability[17][1] = 1; 
+        busAvailability[17][2] = 1;
+        busAvailability[17][3] = 1; 
+        busAvailability[17][4] = 1; 
+        busAvailability[17][5] = 1;
+        busAvailability[17][6] = 1; 
+        busAvailability[17][7] = 1; 
+        busAvailability[17][8] = 1;
+        busAvailability[17][9] = 1; 
+        busAvailability[17][10] = 1; 
+        busAvailability[17][11] = 1;
+    
 
 }
 void inputBusAvailability() {
@@ -629,9 +751,9 @@ void displayBusAvailability() {
     }
 }
 
-// Function to input bus availability for all stops on a selected route
 
 
+// Travel time data for each route
 const char* stopNames[MAX_STOPS] = {
     "Shyamoli", "Gabtoli", "Jatrabari", "Sayedabad", "Khilgaon", 
     "Mohammadpur", "Tejgaon", "Kakrail", "Mirpur 1", "Mirpur 10", 
@@ -639,7 +761,7 @@ const char* stopNames[MAX_STOPS] = {
     "Banani", "Motijheel", "Moghbazar", "Gulshan", "Uttara"
 };
 
-// Travel time data for each route
+
 int estimatedTravelTime[MAX_ROUTES][MAX_STOPS] = {0};
 
 // Function to initialize travel times for each route
@@ -652,7 +774,7 @@ void initializeEstimatedTravelTime(int routeId) {
         }
     }
     else if (routeId == 2) {
-        int times[] = {10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 10,
+        int times[] = {20, 30, 20, 25, 30, 35, 40, 45, 50, 55, 10,
              60, 65, 70, 75, 80, 85, 90, 95, 100, 40, 42, 44, 46};
         for (int i = 0; i < MAX_STOPS - 1; i++) {
             estimatedTravelTime[routeId - 1][i] = times[i];
@@ -673,7 +795,7 @@ void initializeEstimatedTravelTime(int routeId) {
         }
     }
     else if (routeId == 5) {
-        int times[] = {9, 14, 18, 23, 27, 31, 35, 40, 45, 50, 13,
+        int times[] = {10, 14, 18, 23, 27, 31, 35, 40, 45, 50, 13,
              55, 60, 65, 70, 75, 80, 85, 90, 95, 38, 41, 45, 48};
         for (int i = 0; i < MAX_STOPS - 1; i++) {
             estimatedTravelTime[routeId - 1][i] = times[i];
@@ -701,7 +823,7 @@ void initializeEstimatedTravelTime(int routeId) {
         }
     }
     else if (routeId == 9) {
-        int times[] = {14, 16, 24, 30, 36, 40, 42, 48, 54, 60,
+        int times[] = {30, 16, 24, 30, 36, 40, 42, 48, 54, 60,
              15, 65, 70, 75, 80, 85, 90, 95, 100, 110, 50, 55, 60, 65};
         for (int i = 0; i < MAX_STOPS - 1; i++) {
             estimatedTravelTime[routeId - 1][i] = times[i];
@@ -912,7 +1034,7 @@ void printTicket() {
 
     printf("Enter Passenger Type (Student/General): ");
     fgets(type, sizeof(type), stdin);
-    type[strcspn(type, "\n")] = '\0'; // Remove newline character
+    type[strcspn(type, "\n")] = '\0'; 
 
     printf("Enter Bus Name: ");
     fgets(bus, sizeof(bus), stdin);
@@ -943,7 +1065,7 @@ void printTicket() {
     fprintf(ticket, "To          : %s\n", to);
     fprintf(ticket, "Fare        : %d BDT\n", fare);
     fprintf(ticket, "------------------------------\n");
-    fprintf(ticket, "  Thank you for using Bus Koi\n");
+    fprintf(ticket, "  Thank you for using Bus Koi software\n");
     fprintf(ticket, "------------------------------\n");
 
     fclose(ticket);

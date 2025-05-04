@@ -1,9 +1,5 @@
-Rating: 4/5
-Feedback: Average
 
-Rating: 4/5
-Feedback: Good
 
 Rating: 3/5
-Feedback: Good
+Feedback: Average
 

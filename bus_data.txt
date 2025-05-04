@@ -1,2 +1,6 @@
 Bus: Alif | From: Mirpur Sony Cinema Hall | To: Gulshan 1 | Stops: 5 | Fare: 50 Taka | Time: 25 mins
 Bus: RAIDA ENTERPRISE | From: Jatrabari | To: Postogola | Stops: 1 | Fare: 10 Taka | Time: 5 mins
+Bus: RAIDA ENTERPRISE | From: Diabari Chowrasta | To: Badda | Stops: 4 | Fare: 40 Taka | Time: 20 mins
+Bus: Anabil Super | From: Jatrabari | To: Uttara | Stops: 8 | Fare: 80 Taka | Time: 40 mins
+Bus: RAIDA ENTERPRISE | From: Uttara | To: Postogola | Stops: 9 | Fare: 90 Taka | Time: 45 mins
+Bus: Thikana Express Limited | From: Jirani | To: EPZ | Stops: 1 | Fare: 10 Taka | Time: 5 mins
